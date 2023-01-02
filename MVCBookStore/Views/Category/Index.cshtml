@@ -1,0 +1,30 @@
+﻿@using MVCBookStore.Models.Entity
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Selam Dünya!</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Kitap Adı</th>
+    </tr>
+
+
+
+    @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.ID</td>
+                    <td>@x.Ad</td>
+
+
+                </tr>
+            }
+
+
+</table>

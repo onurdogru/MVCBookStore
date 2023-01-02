@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVCBookstoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_KITAPLAR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_YAZARLAR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yazar" Type="nvarchar" MaxLength="50" />
+          <Property Name="KitapID" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBL_YAZARLAR_TBL_KITAPLAR">
+          <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="0..1" />
+          <End Role="TBL_YAZARLAR" Type="Self.TBL_YAZARLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KITAPLAR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_YAZARLAR">
+              <PropertyRef Name="KitapID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCBookstoreModelStoreContainer">
+          <EntitySet Name="TBL_KITAPLAR" EntityType="Self.TBL_KITAPLAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_YAZARLAR" EntityType="Self.TBL_YAZARLAR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_YAZARLAR_TBL_KITAPLAR" Association="Self.FK_TBL_YAZARLAR_TBL_KITAPLAR">
+            <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+            <End Role="TBL_YAZARLAR" EntitySet="TBL_YAZARLAR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCBookstoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_KITAPLAR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_YAZARLAR" Relationship="Self.FK_TBL_YAZARLAR_TBL_KITAPLAR" FromRole="TBL_KITAPLAR" ToRole="TBL_YAZARLAR" />
+        </EntityType>
+        <EntityType Name="TBL_YAZARLAR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yazar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KitapID" Type="Int32" />
+          <NavigationProperty Name="TBL_KITAPLAR" Relationship="Self.FK_TBL_YAZARLAR_TBL_KITAPLAR" FromRole="TBL_YAZARLAR" ToRole="TBL_KITAPLAR" />
+        </EntityType>
+        <Association Name="FK_TBL_YAZARLAR_TBL_KITAPLAR">
+          <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="0..1" />
+          <End Role="TBL_YAZARLAR" Type="Self.TBL_YAZARLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KITAPLAR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_YAZARLAR">
+              <PropertyRef Name="KitapID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCBookstoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_KITAPLAR" EntityType="Self.TBL_KITAPLAR" />
+          <EntitySet Name="TBL_YAZARLAR" EntityType="Self.TBL_YAZARLAR" />
+          <AssociationSet Name="FK_TBL_YAZARLAR_TBL_KITAPLAR" Association="Self.FK_TBL_YAZARLAR_TBL_KITAPLAR">
+            <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+            <End Role="TBL_YAZARLAR" EntitySet="TBL_YAZARLAR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCBookstoreModelStoreContainer" CdmEntityContainer="MVCBookstoreEntities">
+          <EntitySetMapping Name="TBL_KITAPLAR">
+            <EntityTypeMapping TypeName="MVCBookstoreModel.TBL_KITAPLAR">
+              <MappingFragment StoreEntitySet="TBL_KITAPLAR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_YAZARLAR">
+            <EntityTypeMapping TypeName="MVCBookstoreModel.TBL_YAZARLAR">
+              <MappingFragment StoreEntitySet="TBL_YAZARLAR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Yazar" ColumnName="Yazar" />
+                <ScalarProperty Name="KitapID" ColumnName="KitapID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
